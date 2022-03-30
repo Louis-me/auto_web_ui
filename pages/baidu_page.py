@@ -1,10 +1,11 @@
 from common.pages import Pages
 from common.elements import Elements
+from datetime import datetime
 import logging
 class BaiduPage:
     def __init__(self, driver, case_name):
         self.driver = driver
-        self.test_info = {"title": "搜索selenium", "info": "用例描述"}
+        self.test_info = {"title": "搜索selenium" + datetime.now().strftime("%H:%M:%S"), "info": "用例描述"}
         test_case = [
             {"element_info": "kw","find_type": "id", "operate_type": Elements.CLICK, "info": "用例步骤"},
             {"element_info": "kw","find_type": "id", "operate_type": Elements.SEND_KEYS, "info": "用例步骤", "msg": "selenium"},

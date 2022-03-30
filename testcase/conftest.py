@@ -12,27 +12,19 @@ _driver = None
 def driver():
     global _driver
     ip = "82.157.168.101"
-    server = "http://%s:7777/wd/hub" % ip
     # ip = "localhost"
-    # chrome_options = webdriver.ChromeOptions()
-    #
-    # chrome_options.add_argument("--headless")
-    # chrome_options.add_argument("--disable-gpu")
-    # chrome_options.add_argument("--no-sandbox")
-    # chrome_options.add_argument("--ignore-certificate-errors")
-    # chrome_options.add_argument('--proxy-server=%s' % server)
-    # _driver = webdriver.Chrome(options=chrome_options)
+    desired_capabilities = DesiredCapabilities.CHROME
+    # 解决driver.get(url) 慢的问题
+    # desired_capabilities["pageLoadStrategy"] = "none"
     _driver = webdriver.Remote(
         command_executor="http://%s:7777/wd/hub" % ip,
-        desired_capabilities=DesiredCapabilities.CHROME
+        desired_capabilities=desired_capabilities
     )
-    # return _driver
-    # _driver.maximize_window()
     _driver.get("https://www.baidu.com/")
     # 返回数据
     yield _driver
     # 实现用例后置
-    _driver.close()
+    # _driver.close() # centos报错
     _driver.quit()
 
 
